@@ -1,0 +1,65 @@
+import { existsSync, writeFileSync } from 'fs'
+import { emptyDirSync, ensureDirSync } from 'fs-extra'
+import { orderBy } from 'lodash'
+import { dirname, extname, join, resolve } from 'path'
+import { exists, listChildren } from '../util'
+import ArchiveResolver from './resolver/ArchiveResolver'
+import FolderResolver from './resolver/FolderResolver'
+import { Acceptor } from './resolver/IResolver'
+
+async function run() {
+   const resourcesDir = resolve('resources')
+   if (!existsSync(resourcesDir)) throw new Error('no resources directory found')
+
+   const packs = listChildren(resourcesDir)
+
+   function resolverOf({ path, name, info }: typeof packs[0]) {
+      if (info.isFile() && ['.zip', '.jar'].includes(extname(name))) return new ArchiveResolver(path)
+      if (info.isDirectory() && existsSync(join(path, 'assets'))) return new FolderResolver(path)
+      return null
+   }
+
+   const resolvers = orderBy(packs, it => it.name)
+      .map(file => {
+         const resolver = resolverOf(file)
+         return resolver && { ...file, resolver }
+      })
+      .filter(exists)
+
+   console.log(`Found ${resolvers.length} resource packs`)
+
+   const tempDir = resolve('tmp')
+   emptyDirSync(tempDir)
+
+   const acceptor: Acceptor = (path, content) => {
+      if (!path.startsWith('assets/')) return
+
+      const out = join(tempDir, path)
+      ensureDirSync(dirname(out))
+
+      if (existsSync(out)) {
+         console.warn(`File is overwritten: '${path}'`)
+      }
+
+      writeFileSync(out, content)
+   }
+
+   console.group('Extracting resources...')
+   await Promise.all(
+      resolvers.map(async ({ resolver, name }) => {
+         console.log(name)
+         await resolver.extract(acceptor)
+      })
+   )
+   console.groupEnd()
+
+   const packData = {
+      pack: {
+         description: `Server Resources - generated ${new Date().toLocaleDateString()}`,
+         pack_format: 8,
+      },
+   }
+   writeFileSync(join(tempDir, 'pack.mcmeta'), JSON.stringify(packData, null, 2))
+}
+
+run()
