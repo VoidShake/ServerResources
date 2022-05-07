@@ -2,6 +2,7 @@ import { existsSync, writeFileSync } from 'fs'
 import { emptyDirSync, ensureDirSync } from 'fs-extra'
 import { orderBy } from 'lodash'
 import { dirname, extname, join, resolve } from 'path'
+import { zip } from 'zip-a-folder'
 import { exists, listChildren } from '../util'
 import ArchiveResolver from './resolver/ArchiveResolver'
 import FolderResolver from './resolver/FolderResolver'
@@ -32,7 +33,7 @@ async function run() {
    emptyDirSync(tempDir)
 
    const acceptor: Acceptor = (path, content) => {
-      if (!path.startsWith('assets/')) return
+      if (!path.startsWith('assets')) return
 
       const out = join(tempDir, path)
       ensureDirSync(dirname(out))
@@ -60,6 +61,9 @@ async function run() {
       },
    }
    writeFileSync(join(tempDir, 'pack.mcmeta'), JSON.stringify(packData, null, 2))
+
+   console.log('Creating ZIP File...')
+   await zip(tempDir, 'server-resources.zip')
 }
 
 run()

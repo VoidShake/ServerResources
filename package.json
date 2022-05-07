@@ -3,7 +3,8 @@
    "version": "1.0.0",
    "description": "Server Resources",
    "scripts": {
-      "pack": "ts-node src/pack"
+      "pack": "ts-node src/pack",
+      "compare": "ts-node src/compare"
    },
    "repository": {
       "type": "git",
@@ -27,6 +28,7 @@
       "fs-extra": "^10.1.0",
       "lodash": "^4.17.21",
       "node-stream-zip": "^1.15.0",
-      "typescript": "^4.6.4"
+      "typescript": "^4.6.4",
+      "zip-a-folder": "^1.1.3"
    }
 }
