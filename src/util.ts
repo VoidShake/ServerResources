@@ -14,6 +14,6 @@ export function listChildren(dir: string) {
    })
 }
 
-export function sha256(content: Buffer) {
-   return crypto.createHash('sha256').update(content).digest('hex')
+export function fileHash(content: Buffer, type = 'sha256') {
+   return crypto.createHash(type).update(content).digest('hex')
 }

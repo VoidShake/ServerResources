@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import { existsSync } from 'fs'
 import ArchiveResolver from './pack/resolver/ArchiveResolver.js'
-import { sha256 } from './util.js'
+import { fileHash } from './util.js'
 
 async function compare(reference: string, generated: string) {
    if (!existsSync(reference)) throw new Error('Reference archive missing')
@@ -10,13 +10,13 @@ async function compare(reference: string, generated: string) {
    const hashToPath = new Map<string, string>()
 
    await new ArchiveResolver(reference).extract((path, content) => {
-      const hash = sha256(content)
+      const hash = fileHash(content)
       pathToHash.set(path, hash)
       hashToPath.set(hash, path)
    })
 
    await new ArchiveResolver(generated).extract((path, content) => {
-      const hash = sha256(content)
+      const hash = fileHash(content)
       if (pathToHash.has(path)) {
          if (hash !== pathToHash.get(path)) {
             console.log(chalk.yellow(`~ '${path}'`))

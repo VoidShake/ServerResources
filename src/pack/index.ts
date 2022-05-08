@@ -3,7 +3,7 @@ import { emptyDirSync, ensureDirSync } from 'fs-extra'
 import lodash from 'lodash'
 import { dirname, extname, join, resolve } from 'path'
 import { zip } from 'zip-a-folder'
-import { exists, listChildren, sha256 } from '../util.js'
+import { exists, fileHash, listChildren } from '../util.js'
 import ArchiveResolver from './resolver/ArchiveResolver.js'
 import FolderResolver from './resolver/FolderResolver.js'
 import { Acceptor } from './resolver/IResolver.js'
@@ -66,7 +66,7 @@ async function run() {
    console.log('Creating ZIP File...')
    await zip(tempDir, 'server-resources.zip')
 
-   const hash = sha256(readFileSync('server-resources.zip'))
+   const hash = fileHash(readFileSync('server-resources.zip'), 'sha1')
    console.log(`SHA256: ${hash}`)
 }
 
