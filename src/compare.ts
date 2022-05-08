@@ -1,29 +1,38 @@
+import chalk from 'chalk'
 import { existsSync } from 'fs'
-import ArchiveResolver from './pack/resolver/ArchiveResolver'
+import ArchiveResolver from './pack/resolver/ArchiveResolver.js'
+import { sha256 } from './util.js'
 
 async function compare(reference: string, generated: string) {
    if (!existsSync(reference)) throw new Error('Reference archive missing')
 
-   const referenceMap = new Map<string, string>()
+   const pathToHash = new Map<string, string>()
+   const hashToPath = new Map<string, string>()
 
    await new ArchiveResolver(reference).extract((path, content) => {
-      referenceMap.set(path, content.toString())
+      const hash = sha256(content)
+      pathToHash.set(path, hash)
+      hashToPath.set(hash, path)
    })
 
    await new ArchiveResolver(generated).extract((path, content) => {
-      if (referenceMap.has(path)) {
-         const referenceContent = referenceMap.get(path)
-         if (content.toString() !== referenceContent) {
-            console.log(`~ '${path}'`)
+      const hash = sha256(content)
+      if (pathToHash.has(path)) {
+         if (hash !== pathToHash.get(path)) {
+            console.log(chalk.yellow(`~ '${path}'`))
          }
-         referenceMap.delete(path)
+         pathToHash.delete(path)
       } else {
-         console.log(`+ '${path}'`)
+         const oldPath = hashToPath.get(hash)
+         if (oldPath) {
+            console.log(chalk.blue(`~ ${oldPath} -> ${path}`))
+            pathToHash.delete(oldPath)
+         } else console.log(chalk.green(`+ '${path}'`))
       }
    })
 
-   for (const missing of referenceMap.keys()) {
-      console.log(`- '${missing}'`)
+   for (const missing of pathToHash.keys()) {
+      console.log(chalk.red(`- '${missing}'`))
    }
 }
 

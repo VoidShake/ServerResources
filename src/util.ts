@@ -1,3 +1,4 @@
+import crypto from 'crypto'
 import { readdirSync, statSync } from 'fs'
 import { join } from 'path'
 
@@ -11,4 +12,8 @@ export function listChildren(dir: string) {
       const info = statSync(path)
       return { name, path, info }
    })
+}
+
+export function sha256(content: Buffer) {
+   return crypto.createHash('sha256').update(content).digest('hex')
 }

@@ -3,10 +3,10 @@ import { emptyDirSync, ensureDirSync } from 'fs-extra'
 import { orderBy } from 'lodash'
 import { dirname, extname, join, resolve } from 'path'
 import { zip } from 'zip-a-folder'
-import { exists, listChildren } from '../util'
-import ArchiveResolver from './resolver/ArchiveResolver'
-import FolderResolver from './resolver/FolderResolver'
-import { Acceptor } from './resolver/IResolver'
+import { exists, listChildren } from '../util.js'
+import ArchiveResolver from './resolver/ArchiveResolver.js'
+import FolderResolver from './resolver/FolderResolver.js'
+import { Acceptor } from './resolver/IResolver.js'
 
 async function run() {
    const resourcesDir = resolve('resources')
