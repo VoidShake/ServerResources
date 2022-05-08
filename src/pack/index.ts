@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { emptyDirSync, ensureDirSync } from 'fs-extra'
-import { orderBy } from 'lodash'
+import lodash from 'lodash'
 import { dirname, extname, join, resolve } from 'path'
 import { zip } from 'zip-a-folder'
 import { exists, listChildren, sha256 } from '../util.js'
@@ -20,7 +20,8 @@ async function run() {
       return null
    }
 
-   const resolvers = orderBy(packs, it => it.name)
+   const resolvers = lodash
+      .orderBy(packs, it => it.name)
       .map(file => {
          const resolver = resolverOf(file)
          return resolver && { ...file, resolver }
