@@ -1,0 +1,3 @@
+[submodule "resources/Skylands"]
+	path = resources/Skylands
+	url = https://github.com/PssbleTrngle/Skylands.git
