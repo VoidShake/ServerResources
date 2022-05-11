@@ -1,0 +1,7 @@
+{
+   "packs": {
+      "skylands": {
+         "path": "src/main/resources"
+      }
+   }
+}
