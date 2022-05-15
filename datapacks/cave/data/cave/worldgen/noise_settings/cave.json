@@ -1,5 +1,5 @@
 {
-   "aquifers_enabled": false,
+   "aquifers_enabled": true,
    "ore_veins_enabled": false,
    "legacy_random_source": true,
    "sea_level": -257,
@@ -226,7 +226,7 @@
                                     "sequence": [
                                        {
                                           "if_true": {
-                                             "biome_is": ["minecraft:stony_peaks"],
+                                             "biome_is": ["cave:stone_caves"],
                                              "type": "minecraft:biome"
                                           },
                                           "then_run": {
@@ -346,7 +346,7 @@
                               "sequence": [
                                  {
                                     "if_true": {
-                                       "biome_is": ["minecraft:stony_peaks"],
+                                       "biome_is": ["cave:stone_caves"],
                                        "type": "minecraft:biome"
                                     },
                                     "then_run": {
@@ -520,8 +520,8 @@
          "factor": 0.0,
          "jaggedness": 0.0
       },
-      "min_y": -64,
-      "height": 192,
+      "min_y": -256,
+      "height": 256,
       "sampling": {
          "xz_scale": 1.0,
          "y_scale": 3.0,

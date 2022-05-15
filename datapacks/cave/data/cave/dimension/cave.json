@@ -13,7 +13,7 @@
                   "humidity": 0.0,
                   "continentalness": 0.0
                },
-               "biome": "minecraft:stony_peaks"
+               "biome": "cave:stone_caves"
             },
             {
                "parameters": {
@@ -29,12 +29,12 @@
             },
             {
                "parameters": {
-                  "erosion": 2.0,
+                  "erosion": 0.0,
                   "depth": 0.0,
                   "weirdness": 0.0,
                   "offset": 0.0,
                   "temperature": 0.0,
-                  "humidity": 0.0,
+                  "humidity": -2.0,
                   "continentalness": 0.0
                },
                "biome": "minecraft:dripstone_caves"
@@ -42,10 +42,10 @@
             {
                "parameters": {
                   "erosion": 0.0,
-                  "depth": 1.0,
+                  "depth": 0.0,
                   "weirdness": 0.0,
                   "offset": 0.0,
-                  "temperature": -1.0,
+                  "temperature": -2.0,
                   "humidity": 0.0,
                   "continentalness": 0.0
                },
@@ -53,12 +53,12 @@
             },
             {
                "parameters": {
-                  "erosion": -0.2,
-                  "depth": 1.0,
-                  "weirdness": 0.3,
+                  "erosion": -0.0,
+                  "depth": 0.0,
+                  "weirdness": 0.0,
                   "offset": 0.0,
-                  "temperature": 0.0,
-                  "humidity": 0.2,
+                  "temperature": 2.0,
+                  "humidity": 0.0,
                   "continentalness": 0.0
                },
                "biome": "cave:dirt_caves"
