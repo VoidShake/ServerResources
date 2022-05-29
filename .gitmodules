@@ -1,3 +1,6 @@
 [submodule "resources/skylands"]
 	path = resources/skylands
 	url = https://github.com/PssbleTrngle/Skylands.git
+[submodule "resources/polytools"]
+	path = resources/polytools
+	url = https://github.com/PssbleTrngle/PolyTools.git

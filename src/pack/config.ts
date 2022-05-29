@@ -6,7 +6,7 @@ export type Config = {
 }
 
 export interface PackConfig {
-   path?: string
+   paths?: string[]
    priority?: number
 }
 

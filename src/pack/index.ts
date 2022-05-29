@@ -1,13 +1,14 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs'
-import { emptyDirSync, ensureDirSync } from 'fs-extra'
+import { emptyDirSync } from 'fs-extra'
 import lodash from 'lodash'
-import { dirname, extname, join, resolve } from 'path'
+import { extname, join, resolve } from 'path'
 import { zip } from 'zip-a-folder'
 import { exists, fileHash, listChildren } from '../util.js'
 import { getConfig } from './config.js'
+import { Mergers } from './merger/index.js'
+import ModelMerger from './merger/ModelMerger.js'
 import ArchiveResolver from './resolver/ArchiveResolver.js'
 import FolderResolver from './resolver/FolderResolver.js'
-import { Acceptor } from './resolver/IResolver.js'
 
 async function run() {
    const resourcesDir = resolve('resources')
@@ -16,19 +17,21 @@ async function run() {
    const config = getConfig(resourcesDir)
    const packs = listChildren(resourcesDir).map(it => ({ ...it, config: config.packs[it.name] }))
 
-   function resolverOf({ path, name, info, config }: typeof packs[0]) {
-      const realPath = config?.path ? join(path, config.path) : path
-      if (info.isFile() && ['.zip', '.jar'].includes(extname(name))) return new ArchiveResolver(realPath)
-      if (info.isDirectory() && existsSync(join(realPath, 'assets'))) return new FolderResolver(realPath)
-      return null
+   function resolversOf({ path, name, info, config }: typeof packs[0]) {
+      const paths = config?.paths ?? ['.']
+      return paths
+         .map(relativePath => {
+            const realPath = join(path, relativePath)
+            if (info.isFile() && ['.zip', '.jar'].includes(extname(name))) return new ArchiveResolver(realPath)
+            if (info.isDirectory() && existsSync(join(realPath, 'assets'))) return new FolderResolver(realPath)
+            return null
+         })
+         .filter(exists)
    }
 
    const resolvers = lodash
       .orderBy(packs, it => it.config?.priority ?? 0)
-      .map(file => {
-         const resolver = resolverOf(file)
-         return resolver && { ...file, resolver }
-      })
+      .flatMap(file => resolversOf(file).map(resolver => ({ ...file, resolver })))
       .filter(exists)
 
    console.log(`Found ${resolvers.length} resource packs`)
@@ -36,18 +39,11 @@ async function run() {
    const tempDir = resolve('tmp')
    emptyDirSync(tempDir)
 
-   const acceptor: Acceptor = (path, content) => {
-      if (!path.startsWith('assets')) return
+   const mergers = new Mergers({
+      'assets/*/models/**/*.json': ModelMerger,
+   })
 
-      const out = join(tempDir, path)
-      ensureDirSync(dirname(out))
-
-      if (existsSync(out)) {
-         console.warn(`File is overwritten: '${path}'`)
-      }
-
-      writeFileSync(out, content)
-   }
+   const acceptor = mergers.createAcceptor(tempDir)
 
    console.group('Extracting resources...')
    await Promise.all(

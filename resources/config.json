@@ -1,7 +1,10 @@
 {
    "packs": {
       "skylands": {
-         "path": "src/main/resources"
+         "paths": ["src/main/resources", "src/main/generated"]
+      },
+      "polytools": {
+         "paths": ["src/main/resources", "src/main/generated"]
       }
    }
 }
