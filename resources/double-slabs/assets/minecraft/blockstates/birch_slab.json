@@ -1,13 +1,13 @@
 {
-  "variants": {
-    "type=bottom": {
-      "model": "minecraft:block/birch_slab"
-    },
-    "type=double": {
-      "model": "minecraft:block/birch_planks"
-    },
-    "type=top": {
-      "model": "minecraft:block/birch_slab_top"
-    }
-  }
+   "variants": {
+      "type=bottom": {
+         "model": "minecraft:block/birch_slab"
+      },
+      "type=double": {
+         "model": "minecraft:block/vertical_birch_planks"
+      },
+      "type=top": {
+         "model": "minecraft:block/birch_slab_top"
+      }
+   }
 }
