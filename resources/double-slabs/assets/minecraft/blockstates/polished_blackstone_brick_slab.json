@@ -4,7 +4,7 @@
          "model": "minecraft:block/polished_blackstone_brick_slab"
       },
       "type=double": {
-         "model": "minecraft:block/chiseled_polished_blackstone"
+         "model": "minecraft:block/chiseled_polished_blackstone_gold"
       },
       "type=top": {
          "model": "minecraft:block/polished_blackstone_brick_slab_top"

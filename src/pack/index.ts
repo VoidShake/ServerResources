@@ -15,7 +15,9 @@ async function run() {
    if (!existsSync(resourcesDir)) throw new Error('no resources directory found')
 
    const config = getConfig(resourcesDir)
-   const packs = listChildren(resourcesDir).map(it => ({ ...it, config: config.packs[it.name] }))
+   const packs = listChildren(resourcesDir)
+      .map(it => ({ ...it, config: config.packs[it.name] }))
+      .filter(it => !it.config?.disabled)
 
    function resolversOf({ path, name, info, config }: typeof packs[0]) {
       const paths = config?.paths ?? ['.']

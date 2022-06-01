@@ -8,6 +8,7 @@ export type Config = {
 export interface PackConfig {
    paths?: string[]
    priority?: number
+   disabled?: boolean
 }
 
 export function getConfig(dir: string): Config {
