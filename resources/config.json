@@ -6,7 +6,7 @@
       "polytools": {
          "paths": ["src/main/resources", "src/main/generated"]
       },
-      "incendium.zip": {
+      "incendium_extras.zip": {
          "disabled": true
       }
    }
