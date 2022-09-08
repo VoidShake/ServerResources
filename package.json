@@ -11,14 +11,14 @@
    },
    "repository": {
       "type": "git",
-      "url": "git+https://github.com/FrozenPacks/ServerResources.git"
+      "url": "git+https://github.com/VoidShake/ServerResources.git"
    },
    "author": "possible_triangle",
    "license": "ISC",
    "bugs": {
-      "url": "https://github.com/FrozenPacks/ServerResources/issues"
+      "url": "https://github.com/VoidShake/ServerResources/issues"
    },
-   "homepage": "https://github.com/FrozenPacks/ServerResources#readme",
+   "homepage": "https://github.com/VoidShake/ServerResources#readme",
    "devDependencies": {
       "@types/chalk": "^2.2.0",
       "@types/fs-extra": "^9.0.13",
