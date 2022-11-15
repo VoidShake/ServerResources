@@ -7,7 +7,7 @@
          "model": "minecraft:block/vertical_mangrove_planks"
       },
       "type=top": {
-         "model": "minecraft:block/mangrove_slab"
+         "model": "minecraft:block/mangrove_slab_top"
       }
    }
 }
