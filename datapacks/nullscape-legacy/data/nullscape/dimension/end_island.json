@@ -1,0 +1,16 @@
+{
+   "type": "minecraft:the_end",
+   "generator": {
+      "seed": 1292478,
+      "settings": {
+         "biome": "minecraft:the_void",
+         "layers": [
+            {
+               "height": 1,
+               "block": "minecraft:void_air"
+            }
+         ]
+      },
+      "type": "minecraft:flat"
+   }
+}

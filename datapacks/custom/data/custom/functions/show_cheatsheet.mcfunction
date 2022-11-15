@@ -1,0 +1,1 @@
+tellraw @s {"text":"Click here to view cheatsheet","bold":true,"color":"blue","clickEvent":{"action":"open_url","value":"https://gist.github.com/PssbleTrngle/7e9be87d33d982cbe59eefefd21b72bf"},"hoverEvent":{"action":"show_text","contents":["Click Me!"]}}
