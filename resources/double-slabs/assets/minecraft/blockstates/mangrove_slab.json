@@ -1,13 +1,13 @@
 {
    "variants": {
       "type=bottom": {
-         "model": "minecraft:block/magrove_slab"
+         "model": "minecraft:block/mangrove_slab"
       },
       "type=double": {
-         "model": "minecraft:block/vertical_magrove_planks"
+         "model": "minecraft:block/vertical_mangrove_planks"
       },
       "type=top": {
-         "model": "minecraft:block/magrove_slab_top"
+         "model": "minecraft:block/mangrove_slab"
       }
    }
 }

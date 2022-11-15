@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "waystones:item/abyss_watcher"
-  }
+   "parent": "item/generated",
+   "textures": {
+      "layer0": "fwaystones:item/abyss_watcher"
+   }
 }

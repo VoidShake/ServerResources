@@ -16,10 +16,12 @@ jobs:
               token: ${{ secrets.PTA }}
 
          - uses: actions/setup-node@v3
-           with:
-              node-version: 16
 
-         - run: yarn install --frozen-lockfile
+         - name: Install node_modules
+           run: yarn
+           env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
          - run: yarn run build
          - run: yarn run pack
 

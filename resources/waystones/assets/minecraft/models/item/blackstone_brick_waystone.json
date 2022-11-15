@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "waystones:item/blackstone_brick_waystone"
-  }
+   "parent": "item/generated",
+   "textures": {
+      "layer0": "fwaystones:item/blackstone_brick_waystone"
+   }
 }
